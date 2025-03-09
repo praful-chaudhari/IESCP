@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between mt-4 mb-4">
+  <div><h1 class="h2">Sponsor Dashboard</h1></div>
+  <div>{% include "sponsor/influencer_search.html" with context %}</div>
+</div>
+
+<h2 class="h2 text-center">Influencers</h2>
+{% if influencers | length == 0 %}
+  <p class="text-sm text-muted text-center mt-4">No influencers.</p>
+{% else %}
+  <table class="table table-hover mt-4">
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Niche</th>
+      <th scope="col">Followers</th>
+      <th scope="col">Actions</th>
+    </thead>
+    <tbody class="table-group-divider">
+      {% for influencer in influencers %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ influencer.name }}</td>
+          <td>{{ influencer.category }}</td>
+          <td>{{ influencer.niche }}</td>
+          <td>{{ influencer.follower_count }}</td>
+          <td>
+            <a href="{{url_for("sponsor_send_adrequest", influencer_id=influencer.id)}}" class="btn btn-outline-primary"><i class="fa-regular fa-comment-dots"></i> Send Ad Request</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Sponsor Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-3 p-5 pt-4 pb-4 w-50 m-auto">
+    <h1>Ad Request</h1>
+    <div class="card" style="width: 35rem; margin: auto;">
+      <div class="card-body">
+        <h4 class="card-title">Influencer Profile</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Influencer:</strong> {{ influencer.name }}</li>
+          <li class="list-group-item"><strong>Category:</strong> {{ influencer.category }}</li>
+          <li class="list-group-item"><strong>Niche:</strong> {{ influencer.niche }}</li>
+          <li class="list-group-item"><strong>Followers:</strong> {{ influencer.follower_count }}</li>
+          <li class="list-group-item"><strong>Platform Presence:</strong>
+            {% for platform in platforms %}
+              {% if platform == "twitter" %}
+                <button class="btn btn-primary" disabled><i class="fa-brands fa-twitter"></i> Twitter</button>
+              {% endif %}
+              {% if platform == "facebook" %}
+                <button class="btn btn-info" disabled><i class="fa-brands fa-facebook"></i> Facebook</button>
+              {% endif %}
+              {% if platform == "youtube" %}
+                <button class="btn btn-danger" disabled><i class="fa-brands fa-youtube"></i> Youtube</button>
+              {% endif %}
+              {% if platform == "instagram" %}
+                <button class="btn btn-warning" disabled><i class="fa-brands fa-instagram"></i> Instagram</button>
+              {% endif %}
+              {% if platform == "tiktok" %}
+                <button class="btn btn-dark" disabled><i class="fa-brands fa-tiktok"></i> TikTok</button>
+              {% endif %}
+            {% endfor %}
+          </li>
+        </ul>
+        <h4 class="card-title"> for {{ campaign.name }}</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Requirements:</strong> {{ ad_request.requirements }}</li>
+          <li class="list-group-item"><strong>Message:</strong> {{ ad_request.messages }}</li>
+          <li class="list-group-item"><strong>Payment Amount:</strong> {{ ad_request.payment_amount }}</li>
+        </ul>
+          {% if ad_request.status == "pending" %}
+            <div class="d-flex justify-content-between w-75 m-auto mt-3">
+              <a href="{{url_for("sponsor_accept_adrequest", adrequest_id=ad_request.id)}}" class="btn btn-outline-success"><i class="fa-solid fa-square-check"></i> Accept</a>
+              <a href="{{url_for("sponsor_reject_adrequest", adrequest_id=ad_request.id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Reject</a>
+            </div>
+          {% else %}
+            {% if ad_request.status == "accepted" %}
+              <button class="btn btn-success" disabled><i class="fa-solid fa-circle-check"></i> Accepted</button>
+            {% elif ad_request.status == "rejected" %}
+              <button class="btn btn-danger" disabled><i class="fa-solid fa-ban"></i> Rejected</button>
+            {% endif %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

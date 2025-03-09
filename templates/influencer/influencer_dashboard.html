@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Influencer Dashboard
+{% endblock %}
+
+{% block content %}
+  <h1>Influencer Dashboard</h1>
+
+  <h2 class="h2 text-center">Active Campaigns</h2>
+  {% if active_campaigns | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No campaigns.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col-6">Name</th>
+        <th scope="col">Action</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for campaign in active_campaigns %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ campaign.name }}</td>
+            <td>
+              <a href="{{url_for("influencer_dashboard_view_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-info"><i class="fa-solid fa-rectangle-ad"></i> View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5">
+
+  <h2 class="h2 text-center">Completed Campaigns</h2>
+  {% if completed_campaigns | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No completed campaigns.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col-6">Name</th>
+        <th scope="col">Action</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for campaign in completed_campaigns %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ campaign.name }}</td>
+            <td>
+              <a href="{{url_for("influencer_dashboard_view_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-info"><i class="fa-solid fa-rectangle-ad"></i> View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

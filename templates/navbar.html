@@ -1,0 +1,140 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    {% if user and user.user_type == "admin" %}
+      <a class="navbar-brand mx-3" href="{{url_for('admin_dashboard')}}">IESCP</a>
+    {% elif user and user.user_type == "influencer" %}
+      <a class="navbar-brand mx-3" href="{{url_for('influencer_dashboard')}}">IESCP</a>
+    {% elif user and user.user_type == "sponsor" %}
+      <a class="navbar-brand mx-3" href="{{url_for('sponsor_dashboard')}}">IESCP</a>
+    {% else %}
+      <a class="navbar-brand mx-3" href="{{url_for('user_login')}}">IESCP</a>
+    {% endif %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      {% if user %}
+        {% if user.user_type == "admin" %}
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('admin_dashboard') else 'nav-link' }}" href="{{url_for('admin_dashboard')}}">Sponsors</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('all_influencers') else 'nav-link' }}" href="{{url_for('all_influencers')}}">Influencers</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('all_campaigns') else 'nav-link' }}" href="{{url_for('all_campaigns')}}">Campaigns</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('all_ad_requests') else 'nav-link' }}" href="{{url_for('all_ad_requests')}}">Ad Requests</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('admin_statistics') else 'nav-link' }}" href="{{url_for('admin_statistics')}}">Statistics</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link btn btn-outline-danger" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="{{url_for('change_theme')}}">
+                {% if user.theme == 'light' %}
+                  <i class="fa-solid fa-moon"></i>
+                {% else %}
+                  <i class="fa-solid fa-sun"></i>
+                {% endif %}
+                Theme
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link mx-3" href="{{url_for('admin_profile')}}"><i class="fa-solid fa-user"></i> @{{user.username}}</a>
+            </li>
+          </ul>
+        {% endif %}
+        {% if user.user_type == "influencer" %}
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('influencer_dashboard') else 'nav-link' }}" href="{{url_for('influencer_dashboard')}}">Campaigns</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('influencer_dashboard_adrequests') else 'nav-link' }}" href="{{url_for('influencer_dashboard_adrequests')}}">Ad Requests</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('influencer_dashboard_find_campaigns') else 'nav-link' }}" href="{{url_for('influencer_dashboard_find_campaigns')}}">Find Campaigns</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('influencer_statistics') else 'nav-link' }}" href="{{url_for('influencer_statistics')}}">Statistics</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link btn btn-outline-danger" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="{{url_for('change_theme')}}">
+                {% if user.theme == 'light' %}
+                  <i class="fa-solid fa-moon"></i>
+                {% else %}
+                  <i class="fa-solid fa-sun"></i>
+                {% endif %}
+                Theme
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link mx-3" href="{{url_for('influencer_profile')}}"><i class="fa-solid fa-user"></i> @{{user.username}}</a>
+            </li>
+          </ul>
+        {% endif %}
+        {% if user.user_type == "sponsor" %}
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('sponsor_dashboard') else 'nav-link' }}" href="{{url_for('sponsor_dashboard')}}">Campaigns</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('sponsor_dashboard_influencers') else 'nav-link' }}" href="{{url_for('sponsor_dashboard_influencers')}}">Influencers</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('sponsor_dashboard_adrequests') else 'nav-link' }}" href="{{url_for('sponsor_dashboard_adrequests')}}">Ad Requests</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('sponsor_statistics') else 'nav-link' }}" href="{{url_for('sponsor_statistics')}}">Statistics</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link btn btn-outline-danger" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="{{url_for('change_theme')}}">
+                {% if user.theme == 'light' %}
+                  <i class="fa-solid fa-moon"></i>
+                {% else %}
+                  <i class="fa-solid fa-sun"></i>
+                {% endif %}
+                Theme
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link mx-3" href="{{url_for('sponsor_profile')}}"><i class="fa-solid fa-user"></i> @{{user.username}}</a>
+            </li>
+          </ul>
+        {% endif %}
+      {% else %}
+          <ul class="navbar-nav">
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('user_login') else 'nav-link' }}" aria-current="page" href="{{url_for('user_login')}}">User Login</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('admin_login') else 'nav-link' }}" aria-current="page" href="{{url_for('admin_login')}}">Admin Login</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('influencer_register') else 'nav-link' }}" href="{{url_for('influencer_register')}}">Influencer Register</a>
+            </li>
+            <li class="nav-item mx-3">
+              <a class="{{ 'nav-link active' if request.path == url_for('sponsor_register') else 'nav-link' }}" href="{{url_for('sponsor_register')}}">Sponsor Register</a>
+            </li>
+          </ul>
+      {% endif %}
+    </div>
+  </div>
+</nav>

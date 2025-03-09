@@ -1,0 +1,81 @@
+<!-- <div class="container w-50">
+  <div class="row">
+    <div class="col-md">
+      <form action="" method="get">
+        <div class="input-group mb-3">
+          <input type="email" name="email" id="email">
+          <input type="text" class="form-control" aria-label="Text input with dropdown button">
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<!--
+<div class="container w-50">
+  <div class="row">
+    <div class="col-md">
+      <form action="" method="get">
+        <div class="input-group mb-3">
+          <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+<!--
+<div class="container-fluid mt-3">
+  <div class="row">
+      <div class="col-md-12">
+          <form action="" method="GET">
+              <div class="input-group">
+                  <input type="text"
+                  name="cname"
+                  class="form-control" 
+                  placeholder="Category">
+                  <input type="text" 
+                  name="pname"
+                  class="form-control" 
+                  placeholder="Product">
+                  <input type="number" 
+                  name="price"
+                  class="form-control" 
+                  placeholder="Max Price">
+                  <a href="{{url_for('admin_dashboard')}}" class="btn btn-outline-danger">
+                      <i class="fas fa-backspace"></i>
+                      Clear
+                  </a>
+                  <button class="btn btn-outline-primary" type="submit">
+                      <i class="fa fa-search"></i>
+                      Search
+                  </span>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+-->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <form action="" method="post">
+        <div class="input-group mb-3">
+          <select class="form-select" name="search_type" id="selector">
+            <option value="" selected>Select search type</option>
+            <option value="sname">Name</option>
+            <option value="maxbudget">Maximum budget</option>
+            <option value="minbudget">Minimum budget</option>
+            <option value="industry">Industry</option>
+          </select>
+          <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+          <a href="" class="btn btn-outline-danger"><i class="fa-solid fa-backspace"></i> Clear</a>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

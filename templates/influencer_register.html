@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{%block title%}
+  IESCP - Influencer Registration
+{%endblock%}
+
+{% block style %}
+  <style>
+    .required:after {
+      content: " *";
+      color: red;
+  }
+  </style>
+{% endblock  %}
+
+{% block content %}
+<div class="login-form text-center mt-5 mb-5 p-5 pt-4 pb-4 w-50 m-auto border rounded">
+  <h1 class="h2">Influencer Registration</h1>
+  <form action="" class="form" method="post">
+    <div class="form-group text-start">
+      <label for="name" class="form-label required">Name</label>
+      <input type="text" name="name" id="name" class="form-control" placeholder="Enter Your Name" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="username" class="form-label required">Username</label>
+      <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="password" class="form-label required">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="cpassword" class="form-label required">Confirm Password</label>
+      <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Enter password again" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="category" class="form-label required">Category</label>
+      <input type="text" name="category" id="category" class="form-control" placeholder="Enter category" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="niche" class="form-label required">Niche</label>
+      <input type="text" name="niche" id="niche" class="form-control" placeholder="Enter category" required>
+    </div>
+    <div class="form-group text-start">
+      <label for="subscribers" class="form-label required">Number of Subscribers/Followers</label>
+      <input type="number" name="subscribers" id="subscribers" class="form-control" placeholder="Enter number of subscribers/followers" required>
+    </div>
+    <h4 class="h5 text-start">Platform Presence</h4>
+    <div class="form-group text-start">
+      <input type="checkbox" class="btn-check" id="twitter" autocomplete="off" name="platforms" value="twitter">
+      <label class="btn btn-outline-primary" for="twitter"><i class="fa-brands fa-twitter"></i> Twitter</label>
+      <input type="checkbox" class="btn-check" id="facebook" autocomplete="off" name="platforms" value="facebook">
+      <label class="btn btn-outline-info" for="facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</label>
+      <input type="checkbox" class="btn-check" id="youtube" autocomplete="off" name="platforms" value="youtube">
+      <label class="btn btn-outline-danger" for="youtube"><i class="fa-brands fa-youtube"></i> Youtube</label>
+      <input type="checkbox" class="btn-check" id="instagram" autocomplete="off" name="platforms" value="instagram">
+      <label class="btn btn-outline-warning" for="instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
+      <input type="checkbox" class="btn-check" id="tiktok" autocomplete="off" name="platforms" value="tiktok">
+      <label class="btn btn-outline-dark" for="tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Register</button>
+  </form>
+</div>
+{% endblock %}

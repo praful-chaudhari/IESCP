@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-3 p-5 pt-4 pb-4 w-50 m-auto">
+    <h1>Sponsor</h1>
+    <div class="card" style="width: 35rem; margin: auto;">
+      <div class="card-body">
+        <h4 class="card-title">{{ sponsor.name }}</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Username:</strong> {{ sponsor.username }}</li>
+          <li class="list-group-item"><strong>Industry:</strong> {{ sponsor.industry }}</li>
+          <li class="list-group-item"><strong>Budget:</strong> {{ sponsor.budget }}</li>
+        </ul>
+          <a href="{{url_for("admin_dashboard")}}" class="btn btn-primary">Go Back</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

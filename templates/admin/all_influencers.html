@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Admin Dashboard
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <div><h1 class="h2">Admin Dashboard</h1></div>
+    <div>{% include "admin/influencer_search.html" with context %}</div>
+  </div>
+
+  <h2 class="h2 text-center">Influencers</h2>
+  {% if unflagged_influencers | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No influencers.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Category</th>
+        <th scope="col">Niche</th>
+        <th scope="col">Followers</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for influencer in unflagged_influencers %}
+          {% if influencer.flagged == 0 %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ influencer.name }}</td>
+              <td>&commat;{{ influencer.username }}</td>
+              <td>{{ influencer.category }}</td>
+              <td>{{ influencer.niche }}</td>
+              <td>{{ influencer.follower_count }}</td>
+              <td>
+                {% if influencer.flagged == 0 %}
+                  <a href="{{ url_for('flag_influencer', influencer_id=influencer.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+                {% else %}
+                  <a href="{{ url_for('unflag_influencer', influencer_id=influencer.id) }}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+                {% endif %}
+                <a href="{{url_for("admin_view_user", user_id=influencer.id)}}" class="btn btn-info"><i class="fa-regular fa-user"></i> View</a>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Flagged Influencers</h2>
+  {% if flagged_influencers | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No flagged influencers.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Category</th>
+        <th scope="col">Niche</th>
+        <th scope="col">Followers</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for influencer in flagged_influencers %}
+          {% if influencer.flagged == 1 %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ influencer.name }}</td>
+              <td>&commat;{{ influencer.username }}</td>
+              <td>{{ influencer.category }}</td>
+              <td>{{ influencer.niche }}</td>
+              <td>{{ influencer.follower_count }}</td>
+              <td>
+                {% if influencer.flagged == 0 %}
+                  <a href="{{ url_for('flag_influencer', influencer_id=influencer.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+                {% else %}
+                  <a href="{{ url_for('unflag_influencer', influencer_id=influencer.id) }}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+                {% endif %}
+                <a href="{{url_for("admin_view_user", user_id=influencer.id)}}" class="btn btn-info"><i class="fa-regular fa-user"></i> View</a>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Admin Dashboard
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <div><h1 class="h2">Admin Dashboard</h1></div>
+    <div>{% include "admin/campaign_search.html" with context %}</div>
+  </div>
+
+  <h2 class="h2 text-center">Campaigns</h2>
+  {% if unflagged_campaigns | length == 0 %}
+    <p class="text-sm text-muted text-center">No Campaigns.</p>
+  {% else %}
+    <table class="table table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Goals</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Budget</th>
+        <th scope="col">Visibility</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for campaign in unflagged_campaigns %}
+        {% if campaign.flagged == 0 %}
+          <tr>
+        {% else %}
+          <tr class="table-danger">
+        {% endif %}
+            <td>{{ loop.index }}</td>
+            <td>{{ campaign.name }}</td>
+            <td>{{ campaign.description }}</td>
+            <td>{{ campaign.goals }}</td>
+            <td>{{ campaign.start_date.date() }}</td>
+            <td>{{ campaign.end_date.date() }}</td>
+            <td>{{ campaign.budget }}</td>
+            <td>{{ campaign.visibility }}</td>
+            <td>
+              {% if campaign.flagged == 0 %}
+                <a href="{{url_for("admin_flag_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+              {% else %}
+                <a href="{{url_for("admin_unflag_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+              {% endif %}
+              <a href="{{url_for("admin_view_campaign", campaign_id=campaign.id)}}" class="btn btn-info"><i class="fa-solid fa-bullhorn"></i> View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5">
+
+  <h2 class="h2 text-center">Flagged Campaigns</h2>
+  {% if flagged_campaigns | length == 0 %}
+    <p class="text-sm text-muted text-center">No Campaigns.</p>
+  {% else %}
+    <table class="table table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Goals</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Budget</th>
+        <th scope="col">Visibility</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for campaign in flagged_campaigns %}
+        {% if campaign.flagged == 1 %}
+          <tr>
+        {% else %}
+          <tr class="table-danger">
+        {% endif %}
+            <td>{{ loop.index }}</td>
+            <td>{{ campaign.name }}</td>
+            <td>{{ campaign.description }}</td>
+            <td>{{ campaign.goals }}</td>
+            <td>{{ campaign.start_date.date() }}</td>
+            <td>{{ campaign.end_date.date() }}</td>
+            <td>{{ campaign.budget }}</td>
+            <td>{{ campaign.visibility }}</td>
+            <td>
+              {% if campaign.flagged == 0 %}
+                <a href="{{url_for("admin_flag_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+              {% else %}
+                <a href="{{url_for("admin_unflag_campaign", campaign_id=campaign.id)}}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+              {% endif %}
+              <a href="" class="btn btn-info"><i class="fa-solid fa-bullhorn"></i> View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

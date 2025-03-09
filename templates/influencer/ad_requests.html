@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Influencer Dashboard</h1>
+
+  <h2 class="h2 text-center">New Ad Requests</h2>
+  {% if ad_requests | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ad requests.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Sponsor Name</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad in ad_requests %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ ad_requests[ad][1] }}</td>
+            <td>{{ ad_requests[ad][2] }}</td>
+            </td>
+            <td>
+              <a href="{{url_for("influencer_dashboard_view_adrequest", adrequest_id=ad_requests[ad][0].id)}}" class="btn btn-outline-info"><i class="fa-solid fa-comment-dots"></i> View</a>
+              <a href="{{url_for("influencer_dashboard_accept_adrequest", adrequest_id=ad_requests[ad][0].id)}}" class="btn btn-outline-success"><i class="fa-solid fa-square-check"></i> Accept</a>
+              <a href="{{url_for("influencer_dashboard_reject_adrequest", adrequest_id=ad_requests[ad][0].id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Reject</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5">
+
+  <h2 class="h2 text-center">Sent Ad Requests</h2>
+  {% if sent_ads | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ads.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Sponsor Name</th>
+        <th scope="col">Requirement</th>
+        <th scope="col">Message</th>
+        <th scope="col">Status</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad in sent_ads %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ sent_ads[ad][1] }}</td>
+          <td>{{ sent_ads[ad][2] }}</td>
+          <td>{{ sent_ads[ad][0].requirements }}</td>
+          <td>{{ sent_ads[ad][0].messages }}</td>
+          <td>
+            {% if sent_ads[ad][0].status == "pending" %}
+              <button class="btn btn-warning"><i class="fa-solid fa-spinner"></i> Pending</button>
+            {% elif sent_ads[ad][0].status == "accepted" %}
+              <button class="btn btn-success"><i class="fa-solid fa-circle-check"></i> Accepted</button>
+            {% elif sent_ads[ad][0].status == "rejected" %}
+              <button class="btn btn-danger"><i class="fa-solid fa-ban"></i> Rejected</button>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5">
+
+  <h2 class="h2 text-center">Active Ads</h2>
+  {% if active_ads | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ads.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Sponsor Name</th>
+        <th scope="col">Requirement</th>
+        <th scope="col">Message</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad in active_ads %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ active_ads[ad][1] }}</td>
+            <td>{{ active_ads[ad][2] }}</td>
+            <td>{{ active_ads[ad][0].requirements }}</td>
+            <td>{{ active_ads[ad][0].messages }}</td>
+            <td>
+              <a href="{{url_for("influencer_dashboard_completed_ad", adrequest_id=active_ads[ad][0].id)}}" class="btn btn-outline-info"><i class="fa-solid fa-check"></i> Mark Completed</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5">
+
+  <h2 class="h2 text-center">Completed Ads</h2>
+  {% if completed_ads | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ads.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Sponsor Name</th>
+        <th scope="col">Requirement</th>
+        <th scope="col">Message</th>
+        <th scope="col">Status</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad in completed_ads %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ completed_ads[ad][1] }}</td>
+          <td>{{ completed_ads[ad][2] }}</td>
+          <td>{{ completed_ads[ad][0].requirements }}</td>
+          <td>{{ completed_ads[ad][0].messages }}</td>
+          <td>
+            <button class="btn btn-success"><i class="fa-solid fa-check"></i> Completed</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

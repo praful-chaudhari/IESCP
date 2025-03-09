@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - All Ad Requests
+{% endblock %}
+
+{% block content %}
+  <div><h1 class="h2">Admin Dashboard</h1></div>
+
+  <h2 class="h2 text-center">Ad Requests</h2>
+  {% if ad_requests | length == 0 %}
+    <p class="text-sm text-muted text-center">No Ad Requests.</p>
+  {% else %}
+    <table class="table table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign</th>
+        <th scope="col">Sponsor</th>
+        <th scope="col">Influencer</th>
+        <th scope="col">Sent by</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad_request in ad_requests %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ ad_requests[ad_request][1].name }}</td>
+            <td>{{ ad_requests[ad_request][2].name }}</td>
+            <td>{{ ad_requests[ad_request][3].name }}</td>
+            <td>
+              {% if ad_requests[ad_request][0].requested_by == "sponsor" %}
+                <button class="btn btn-outline-light" disabled>Sponsor</button>
+              {% endif %}
+              {% if ad_requests[ad_request][0].requested_by == "influencer" %}
+                <button class="btn btn-outline-light" disabled>Influencer</button>
+              {% endif %}
+            </td>
+            <td>
+              {% if ad_requests[ad_request][0].status == "pending" %}
+                <button class="btn btn-warning" disabled><i class="fa-solid fa-spinner"></i> Action Pending</button>
+              {% elif ad_requests[ad_request][0].status == "accepted" %}
+                <button class="btn btn-success" disabled><i class="fa-solid fa-circle-check"></i> Accepted</button>
+                {% if ad_requests[ad_request][0].completed %}
+                  <button class="btn btn-success" disabled><i class="fa-solid fa-check-double"></i> Completed</button>
+                {% else %}
+                  <button class="btn btn-warning" disabled><i class="fa-solid fa-hourglass-half"></i> Working</button>
+                {% endif %}
+              {% elif ad_requests[ad_request][0].status == "rejected" %}
+                <button class="btn btn-danger" disabled><i class="fa-solid fa-ban"></i> Rejected</button>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{{url_for("admin_view_adrequest", adrequest_id=ad_requests[ad_request][0].id)}}" class="btn btn-info"><i class="fa-solid fa-rectangle-ad"></i> View</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

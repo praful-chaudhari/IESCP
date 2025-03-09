@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Influencer Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-5 p-5 pt-4 pb-4 w-50 m-auto border rounded">
+    <h1>Edit Profile</h1>
+
+    <form action="" class="form" method="post">
+      <div class="form-group text-start">
+        <label for="name" class="form-label required">Name</label>
+        <input type="text" name="name" id="name" class="form-control" value="{{ current_user.name }}" placeholder="Enter Your Name" required>
+      </div>
+      <div class="form-group text-start">
+        <label for="username" class="form-label required">Username</label>
+        <input type="text" name="username" id="username" class="form-control" value="{{ current_user.username }}" placeholder="Enter username" required>
+      </div>
+      <div class="form-group text-start">
+        <label for="category" class="form-label required">Category</label>
+        <input type="text" name="category" id="category" class="form-control" value="{{ current_user.category }}" placeholder="Enter category" required>
+      </div>
+      <div class="form-group text-start">
+        <label for="niche" class="form-label required">Niche</label>
+        <input type="text" name="niche" id="niche" class="form-control" value="{{ current_user.category }}" placeholder="Enter category" required>
+      </div>
+      <div class="form-group text-start">
+        <label for="subscribers" class="form-label required">Number of Subscribers/Followers</label>
+        <input type="number" name="subscribers" id="subscribers" class="form-control" value="{{ current_user.follower_count }}" placeholder="Enter number of subscribers/followers" required>
+      </div>
+      <h4 class="h5 text-start">Platform Presence</h4>
+      <div class="form-group text-start">
+        <input type="checkbox" class="btn-check" id="twitter" autocomplete="off" name="platforms" value="twitter" {% if 'twitter' in platforms %}checked{% endif %}>
+        <label class="btn btn-outline-primary" for="twitter"><i class="fa-brands fa-twitter"></i> Twitter</label>
+        <input type="checkbox" class="btn-check" id="facebook" autocomplete="off" name="platforms" value="facebook" {% if 'facebook' in platforms %}checked{% endif %}>
+        <label class="btn btn-outline-info" for="facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</label>
+        <input type="checkbox" class="btn-check" id="youtube" autocomplete="off" name="platforms" value="youtube" {% if 'youtube' in platforms %}checked{% endif %}>
+        <label class="btn btn-outline-danger" for="youtube"><i class="fa-brands fa-youtube"></i> Youtube</label>
+        <input type="checkbox" class="btn-check" id="instagram" autocomplete="off" name="platforms" value="instagram" {% if 'instagram' in platforms %}checked{% endif %}>
+        <label class="btn btn-outline-warning" for="instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
+      </div>
+      <button type="submit" class="btn btn-primary mt-4">Save</button>
+    </form>
+  </div>
+{% endblock %}

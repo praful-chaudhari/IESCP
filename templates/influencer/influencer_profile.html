@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Influencer Dashboard
+{% endblock %}
+
+{% block content %}
+  <h1>Influencer Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-3 p-5 pt-4 pb-4 w-50 m-auto">
+    <h2 class="h2 text-center">Profile</h2>
+    <div class="card" style="width: 50rem; margin: auto;">
+      <div class="card-body">
+        <h4 class="card-title">{{ user.name }}</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
+          <li class="list-group-item"><strong>Category:</strong> {{ user.category }}</li>
+          <li class="list-group-item"><strong>Niche:</strong> {{ user.niche }}</li>
+          <li class="list-group-item"><strong>Followers:</strong> {{ user.follower_count }}</li>
+            <li class="list-group-item"><strong>Platform presence:</strong>
+              {% for platform in platforms %}
+                {% if platform == "twitter" %}
+                  <button class="btn btn-primary"><i class="fa-brands fa-twitter"></i> Twitter</button>
+                {% endif %}
+                {% if platform == "facebook" %}
+                  <button class="btn btn-info"><i class="fa-brands fa-facebook"></i> Facebook</button>
+                {% endif %}
+                {% if platform == "youtube" %}
+                  <button class="btn btn-danger"><i class="fa-brands fa-youtube"></i> Youtube</button>
+                {% endif %}
+                {% if platform == "instagram" %}
+                  <button class="btn btn-warning"><i class="fa-brands fa-instagram"></i> Instagram</button>
+                {% endif %}
+                {% if platform == "tiktok" %}
+                  <button class="btn btn-dark"><i class="fa-brands fa-tiktok"></i> TikTok</button>
+                {% endif %}
+              {% endfor %}
+            </li>
+        </ul>
+        <a href="{{url_for("edit_influencer_profile")}}" class="btn btn-primary">Edit</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

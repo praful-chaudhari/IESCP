@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-3 p-5 pt-4 pb-4 w-50 m-auto">
+    <h1>Campaign</h1>
+    <div class="card" style="width: 25rem; margin: auto;">
+      <div class="card-body">
+        <h4 class="card-title">{{ campaign.name }}</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Sponsor:</strong> {{ sponsor.name }}</li>
+          <li class="list-group-item"><strong>Description:</strong> {{ campaign.description }}</li>
+          <li class="list-group-item"><strong>Start date:</strong> {{ campaign.start_date.date() }}</li>
+          <li class="list-group-item"><strong>End date:</strong> {{ campaign.end_date.date() }}</li>
+          <li class="list-group-item"><strong>Budget:</strong> {{ campaign.budget }}</li>
+          <li class="list-group-item"><strong>Goals:</strong> {{ campaign.goals }}</li>
+          <li class="list-group-item"><strong>Visibility:</strong> {{ campaign.visibility }}</li>
+        </ul>
+          <a href="{{url_for("all_campaigns")}}" class="btn btn-primary">Go Back</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

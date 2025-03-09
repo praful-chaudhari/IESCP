@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+
+  <h2 class="h2 text-center">Users Statistics</h2>
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <img src="{{ url_for("static", filename="admin_stats/users_pie.png") }}" height="400" width="400" alt="Users Statistics Pie Chart">
+    <img src="{{ url_for("static", filename="admin_stats/users_bar.png") }}" height="400" width="600" alt="Users Statistics Bar Chart">
+  </div>
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <img src="{{ url_for("static", filename="admin_stats/influencers_status_bar.png") }}" height="400" width="600" alt="Influencers Status Bar Chart">
+    <img src="{{ url_for("static", filename="admin_stats/sponsors_status_bar.png") }}" height="400" width="600" alt="Sponsors Status Bar Chart">
+  </div>
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Campaign Statistics</h2>
+  <div class="text-center mt-4 mb-4">
+    <img src="{{ url_for("static", filename="admin_stats/campaigns_status_bar.png") }}" height="400" width="600" alt="Campaigns Status Bar Chart">
+  </div>
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Ad Requests Statistics</h2>
+  <div class="text-center mt-4 mb-4">
+    <img src="{{ url_for("static", filename="admin_stats/adrequests_status_bar.png") }}" height="400" width="600" alt="Ad Requests Status Bar Chart">
+  </div>
+  {% endblock %}

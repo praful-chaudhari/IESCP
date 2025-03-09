@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Admin Dashboard
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <div><h1 class="h2">Admin Dashboard</h1></div>
+    <div>{% include "admin/sponsor_search.html" with context %}</div>
+  </div>
+
+  <h2 class="h2 text-center">Sponsors</h2>
+  {% if unflagged_sponsors | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No sponsors.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Industry</th>
+        <th scope="col">Budget</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for sponsor in unflagged_sponsors %}
+          {% if sponsor.flagged == 0 %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ sponsor.name }}</td>
+              <td>@</i>{{ sponsor.username }}</td>
+              <td>{{ sponsor.industry }}</td>
+              <td>{{ sponsor.budget }}</td>
+              <td>
+                {% if sponsor.flagged == 0 %}
+                  <a href="{{ url_for('flag_sponsor', sponsor_id=sponsor.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+                {% else %}
+                  <a href="{{ url_for('unflag_sponsor', sponsor_id=sponsor.id) }}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+                {% endif %}
+                <a href="{{url_for("admin_view_user", user_id=sponsor.id)}}" class="btn btn-info"><i class="fa-regular fa-user"></i> View</a>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Flagged Sponsors</h2>
+  {% if flagged_sponsors | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No flagged sponsors.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Industry</th>
+        <th scope="col">Budget</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for sponsor in flagged_sponsors %}
+          {% if sponsor.flagged == 1 %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ sponsor.name }}</td>
+              <td>@{{ sponsor.username }}</td>
+              <td>{{ sponsor.industry }}</td>
+              <td>{{ sponsor.budget }}</td>
+              <td>
+                {% if sponsor.flagged == 0 %}
+                  <a href="{{ url_for('flag_sponsor', sponsor_id=sponsor.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-flag"></i> Flag</a>
+                {% else %}
+                  <a href="{{ url_for('unflag_sponsor', sponsor_id=sponsor.id) }}" class="btn btn-outline-success"><i class="fa-solid fa-flag"></i> Unflag</a>
+                {% endif %}
+                <a href="{{url_for("admin_view_user", user_id=sponsor.id)}}" class="btn btn-info"><i class="fa-regular fa-user"></i> View</a>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Sponsor Dashboard
+{% endblock %}
+
+{% block content %}
+  <h1>Sponsor Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-3 p-5 pt-4 pb-4 w-50 m-auto">
+    <h1>Campaign</h1>
+    <div class="card" style="width: 35rem; margin: auto;">
+      <div class="card-body">
+        <h4 class="card-title">{{ campaign.name }}</h4>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Description:</strong> {{ campaign.description }}</li>
+          <li class="list-group-item"><strong>Start date:</strong> {{ campaign.start_date.date() }}</li>
+          <li class="list-group-item"><strong>End date:</strong> {{ campaign.end_date.date() }}</li>
+          <li class="list-group-item"><strong>Budget:</strong> {{ campaign.budget }}</li>
+          <li class="list-group-item"><strong>Goals:</strong> {{ campaign.goals }}</li>
+          <li class="list-group-item"><strong>Visibility:</strong> {{ campaign.visibility }}</li>
+        </ul>
+        <div class="d-flex justify-content-between w-75 m-auto mt-3">
+          <a href="{{url_for("sponsor_edit_campaign", campaign_id=campaign.id)}}" class="btn btn-primary">Edit</a>
+          <a href="{{url_for("sponsor_delete_campaign", campaign_id=campaign.id)}}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a href="{{url_for("sponsor_dashboard_influencers")}}" class="btn btn-primary">Create New Ad Request</a>
+  </div>
+
+  {% if campaign.visibility == "public" %}
+    <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+    <h2 class="h2 text-center">New Ad requests for this campaign</h2>
+    {% if new_adrequests | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ad requests.</p>
+    {% else %}
+      <table class="table table-hover mt-4">
+        <thead>
+          <th scope="col">#</th>
+          <th scope="col">Campaign Name</th>
+          <th scope="col">Influencer Name</th>
+          <th scope="col">Actions</th>
+        </thead>
+        <tbody class="table-group-divider">
+          {% for ad in new_adrequests %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ new_adrequests[ad][1] }}</td>
+              <td>{{ new_adrequests[ad][2] }}</td>
+              </td>
+              <td>
+                <a href="{{url_for("sponsor_view_adrequest", adrequest_id=new_adrequests[ad][0].id)}}" class="btn btn-outline-info"><i class="fa-solid fa-comment-dots"></i> View</a>
+                <a href="{{url_for("sponsor_accept_adrequest", adrequest_id=new_adrequests[ad][0].id)}}" class="btn btn-outline-success"><i class="fa-solid fa-square-check"></i> Accept</a>
+                <a href="{{url_for("sponsor_reject_adrequest", adrequest_id=new_adrequests[ad][0].id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Reject</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endif %}
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Sent Ad requests for this campaign</h2>
+  {% if sent_adrequests | length == 0 %}
+    <p class="text-sm text-muted text-center mt-4">No ads.</p>
+  {% else %}
+    <table class="table table-hover mt-4">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Influencer Name</th>
+        <th scope="col">Requirement</th>
+        <th scope="col">Message</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for ad in sent_adrequests %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ sent_adrequests[ad][1] }}</td>
+          <td>{{ sent_adrequests[ad][2] }}</td>
+          <td>{{ sent_adrequests[ad][0].requirements }}</td>
+          <td>{{ sent_adrequests[ad][0].messages }}</td>
+          <td>
+            {% if sent_adrequests[ad][0].status == "pending" %}
+              <button class="btn btn-warning" disabled><i class="fa-solid fa-spinner"></i> Action Pending</button>
+            {% elif sent_adrequests[ad][0].status == "accepted" %}
+              <button class="btn btn-success" disabled><i class="fa-solid fa-circle-check"></i> Accepted</button>
+              {% if sent_adrequests[ad][0].completed %}
+                <button class="btn btn-success" disabled><i class="fa-solid fa-check-double"></i> Completed</button>
+              {% else %}
+                <button class="btn btn-warning" disabled><i class="fa-solid fa-hourglass-half"></i> Working</button>
+              {% endif %}
+            {% elif sent_adrequests[ad][0].status == "rejected" %}
+              <button class="btn btn-danger" disabled><i class="fa-solid fa-ban"></i> Rejected</button>
+            {% endif %}
+          </td>
+          <td>
+            {% if sent_adrequests[ad][0].status == "pending" %}
+            <a href="{{url_for("sponsor_edit_adrequest", adrequest_id=sent_adrequests[ad][0].id)}}" class="btn btn-outline-info"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+            {% endif %}
+            <a href="{{url_for("sponsor_delete_adrequest", adrequest_id=sent_adrequests[ad][0].id)}}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  {% if campaign.visibility == "public" %}
+    <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+    <h2 class="h2 text-center">Received Ad requests for this campaign</h2>
+    {% if received_adrequests | length == 0 %}
+      <p class="text-sm text-muted text-center mt-4">No ads.</p>
+    {% else %}
+      <table class="table table-hover mt-4">
+        <thead>
+          <th scope="col">#</th>
+          <th scope="col">Campaign Name</th>
+          <th scope="col">Influencer Name</th>
+          <th scope="col">Requirement</th>
+          <th scope="col">Message</th>
+          <th scope="col">Status</th>
+        </thead>
+        <tbody class="table-group-divider">
+          {% for ad in received_adrequests %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ received_adrequests[ad][1] }}</td>
+            <td>{{ received_adrequests[ad][2] }}</td>
+            <td>{{ received_adrequests[ad][0].requirements }}</td>
+            <td>{{ received_adrequests[ad][0].messages }}</td>
+            <td>
+              {% if received_adrequests[ad][0].status == "pending" %}
+                <button class="btn btn-warning" disabled><i class="fa-solid fa-spinner"></i> Action Pending</button>
+              {% elif received_adrequests[ad][0].status == "accepted" %}
+                <button class="btn btn-success" disabled><i class="fa-solid fa-circle-check"></i> Accepted</button>
+                {% if received_adrequests[ad][0].completed %}
+                  <button class="btn btn-success" disabled><i class="fa-solid fa-check-double"></i> Completed</button>
+                {% else %}
+                  <button class="btn btn-warning" disabled><i class="fa-solid fa-hourglass-half"></i> Working</button>
+                {% endif %}
+              {% elif received_adrequests[ad][0].status == "rejected" %}
+                <button class="btn btn-danger" disabled><i class="fa-solid fa-ban"></i> Rejected</button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endif %}
+{% endblock %}

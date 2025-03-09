@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Sponsor Dashboard
+{% endblock %}
+
+{% block content %}
+  <h1>Sponsor Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-5 p-5 pt-4 pb-4 w-50 m-auto border rounded">
+    <h1>Send Ad Request</h1>
+
+    <form action="" method="post" class="form">
+      <h4>Influencer: <strong>{{influencer.name}} - {{influencer.category}}</strong></h4>
+      <div class="form-group text-start">
+        <input type="text" name="influencer_id" id="influencer_id" class="form-control" value="{{influencer.id}}" hidden required>
+      </div>
+      <div class="form-group text-start">
+        <label for="campaign_selector" class="form-label required">Select Campaign</label>
+        <select class="form-select" name="campaign_id" id="campaign_selector">
+          {% if campaigns | length == 0 %}
+            <option value="">No campaigns available</option>
+          {% else %}
+            {% for campaign in campaigns %}
+              <option value="{{campaign.id}}">{{campaign.name}}</option>
+            {% endfor %}
+          {% endif %}
+        </select>
+      </div>
+      <div class="form-group text-start">
+        <label for="requirement" class="form-label required">Requirements</label>
+        <textarea name="requirement" id="requirement" class="form-control" placeholder="Enter ad requirement" required></textarea>
+      </div>
+      <div class="form-group text-start">
+        <label for="message" class="form-label required">Message</label>
+        <input type="text" name="message" id="message" class="form-control" placeholder="Enter ad message" required>
+      </div>
+      <div class="form-group text-start">
+        <label for="amount" class="form-label required">Payment amount</label>
+        <input type="number" name="amount" id="amount" class="form-control" placeholder="Enter ad payment amount" required>
+      </div>
+      <button type="submit" class="btn btn-primary mt-4">Send</button>
+    </form>
+  </div>
+{% endblock %}

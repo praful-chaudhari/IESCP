@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Sponsor Dashboard</h1>
+
+  <h2 class="h2 text-center">Campaigns Statistics</h2>
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <img src="{{ url_for("static", filename="sponsor_stats/campaigns_status_bar.png") }}" height="400" width="600" alt="Campaigns Statistics Bar Chart">
+    <img src="{{ url_for("static", filename="sponsor_stats/campaigns_status_pie.png") }}" height="400" width="500" alt="Campaigns Statistics Pie Chart">
+  </div>
+
+  <hr class="border border-3 border-dark-subtle mt-5 mb-5">
+
+  <h2 class="h2 text-center">Ad Requests Statistics</h2>
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <img src="{{ url_for("static", filename="sponsor_stats/adrequests_status_bar.png") }}" height="400" width="600" alt="Ad Requests Status Bar Chart">
+    <img src="{{ url_for("static", filename="sponsor_stats/sent_adrequests_status_bar.png") }}" height="400" width="600" alt="Sent Ad Requests Status Bar Chart">
+  </div>
+  <div class="text-center mt-4 mb-4">
+    <img src="{{ url_for("static", filename="sponsor_stats/received_adrequests_status_bar.png") }}" height="400" width="600" alt="Received Ad Requests Status Bar Chart">
+  </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+  IESCP - Sponsor Dashboard
+{% endblock %}
+
+{% block content %}
+  <h1>Sponsor Dashboard</h1>
+
+  <div class="login-form text-center mt-5 mb-5 p-5 pt-4 pb-4 w-50 m-auto">
+    <h1>Delete Campaign</h1>
+    <div class="card" style="width: 25rem; margin: auto;">
+      <div class="card-body">
+        <h5 class="card-title">{{ campaign.name }}</h5>
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item"><strong>Description:</strong> {{ campaign.description }}</li>
+          <li class="list-group-item"><strong>Start date:</strong> {{ campaign.start_date.date() }}</li>
+          <li class="list-group-item"><strong>End date:</strong> {{ campaign.end_date.date() }}</li>
+          <li class="list-group-item"><strong>Budget:</strong> {{ campaign.budget }}</li>
+          <li class="list-group-item"><strong>Goals:</strong> {{ campaign.goals }}</li>
+          <li class="list-group-item"><strong>Visibility:</strong> {{ campaign.visibility }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-3">
+      <form action="" method="post">
+        <div class="form-group">
+          <label class="form-check-label" for="delete_campaign">
+            Are you sure want to delete this campaign?
+          </label>
+          <input class="form-check-input" type="checkbox" name="delete_check" value="yes" id="delete_campaign">
+        </div>
+        <button type="submit" class="btn btn-danger mt-2">Delete</button>
+      </form>
+      <a href="{{url_for("view_campaign", campaign_id=campaign.id)}}" class="btn btn-primary mt-4">Cancel</a>
+    </div>
+
+  </div>
+{% endblock %}
