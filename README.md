@@ -6,6 +6,9 @@
 
 Developed as a graded project during my college studies, this platform explores innovative approaches in influencer marketing by bridging the gap between sponsors and influencers. Sponsors can launch and monitor advertising campaigns, while influencers can manage sponsorship opportunities. The system uses a relational database for data storage, and its interface is rendered using Jinja templates styled with Bootstrap, ensuring a modern and responsive user experience.
 
+I earned creator badge for this project
+![Project Badge](./Project%20Badge.png)
+
 ## Features
 
 The application provides dedicated dashboards for sponsors, influencers, and administrators. Sponsors can create and track campaigns, while influencers can view and manage sponsorship opportunities. Additionally, the platform includes reporting features that offer clear insights into engagement metrics and campaign performance, enabling users to optimize their marketing efforts.
