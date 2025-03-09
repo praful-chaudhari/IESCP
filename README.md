@@ -9,6 +9,8 @@ Developed as a graded project during my college studies, this platform explores 
 I earned creator badge for this project
 ![Project Badge](./Project%20Badge.png)
 
+Here's my student profile page : https://ds.study.iitm.ac.in/student/22F2001300
+
 ## Features
 
 The application provides dedicated dashboards for sponsors, influencers, and administrators. Sponsors can create and track campaigns, while influencers can view and manage sponsorship opportunities. Additionally, the platform includes reporting features that offer clear insights into engagement metrics and campaign performance, enabling users to optimize their marketing efforts.
